@@ -164,29 +164,15 @@ public class gui extends JPanel {
                     int col = table.columnAtPoint(e.getPoint());
                     HARData a = har.get(row); // Get HARData custom data type from list
                     //Populate response/request headers
-                    int r = 0;
                     for (String header : a.requestHeaders) { // Loop through request headers
-                        api.logging().logToOutput(header);
                         String txt = txtRequest.getText();
-                        if (r == 0) {
-                            txtRequest.setText(txt + header.replace("name: ", "").replace("\"","").replace("value",""));
-                            r++;
-                        } else {
-                            txtRequest.setText(txt + header.replace("name: ", "").replace("\"","").replace("value","") + "\n");
-                            r = 0;
-                        }
+                        txtRequest.setText(txt + header.replace("name: ", "").replace("\"","").replace("value","") + "\n");
                     }
                     txtRequest.setCaretPosition(0);
                     int s = 0;
                     for (String header : a.responseHeaders) { // Loop through response headers
                         String txt = txtResponse.getText();
-                        if (s == 0) {
-                            txtResponse.setText(txt + header.replace("name: ", "").replace("\"","").replace("value",""));
-                            s++;
-                        } else {
-                            txtResponse.setText(txt + header.replace("name: ", "").replace("\"","").replace("value","") + "\n");
-                            s = 0;
-                        }
+                        txtResponse.setText(txt + header.replace("name: ", "").replace("\"","").replace("value","") + "\n");
                     }
                     txtResponse.setCaretPosition(0);
                 }
@@ -243,9 +229,9 @@ public class gui extends JPanel {
                         //api.logging().logToOutput("[+] Added: " + value);
                     }
                     for(int r = 0; r < headers_rsp.length(); r++) {
-                        JSONObject header = headers.getJSONObject(r);
-                        String key = header.getString("name");
-                        String value = header.getString("value");
+                        JSONObject headersp = headers_rsp.getJSONObject(r);
+                        String key = headersp.getString("name");
+                        String value = headersp.getString("value");
                         harData.responseHeaders.add(key + ": " + value);
                     }
                 } catch (Exception e) {
